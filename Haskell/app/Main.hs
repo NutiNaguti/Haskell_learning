@@ -13,7 +13,7 @@ evenSum l = accumSum 0 l
                             then accumSum (n+x) xs
                             else accumSum n xs
  
-fib :: Int -> Int
+fib :: Int -> Integer
 fib n = 
     if n < 2
         then n
@@ -24,6 +24,13 @@ factorial n =
     if n < 1
         then 1
         else n * factorial(n-1)
+
+bubbleSort :: [Integer] -> [Integer]
+bubbleSort l = sort 0 l
+    where sort n l = 
+        if l == []
+            then n
+            else let x = l   
 
 main :: IO ()
 main = do
