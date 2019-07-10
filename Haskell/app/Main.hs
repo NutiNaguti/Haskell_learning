@@ -3,17 +3,15 @@ module Main where
 import Lib
 
 evenSum :: Integral a => [a] -> a
-evenSum l = accumSum 0 l
-    where accumSum n l = 
-            if l == []
-                then n
-                else let x = head l 
-                         xs = tail l 
-                     in if even x
-                            then accumSum (n+x) xs
-                            else accumSum n xs
- 
-fib :: Int -> Integer
+evenSum = accumSum 0
+    where 
+        accumSum n [] = n
+        accumSum n (x:xs) = 
+             if even x
+                then accumSum (n+x) xs
+                else accumSum n xs
+
+fib :: Int -> Int
 fib n = 
     if n < 2
         then n
