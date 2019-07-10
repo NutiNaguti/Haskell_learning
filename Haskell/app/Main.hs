@@ -19,7 +19,14 @@ fib n =
         then n
         else fib (n-1) + fib (n-2)
 
+factorial :: Int -> Int
+factorial n = 
+    if n < 1
+        then 1
+        else n * factorial(n-1)
+
 main :: IO ()
 main = do
     print $ evenSum [1..4]
     print $ fib 10
+    print $ factorial 10
