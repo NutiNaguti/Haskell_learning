@@ -1,6 +1,7 @@
 module Main where
 
 import Lib
+import Data.List
 
 evenSum :: Integral a => [a] -> a
 evenSum = accumSum 0
@@ -44,9 +45,12 @@ bSort x | (n==0) = sx
           where (n,sx) = transp x
 
 ------------------------------------------------------------------------------
+root a b c  = (0 - b) - sqrt (discr)
+    where discr = (b^2) - (4 * a * c)
 
 main :: IO ()
 main = do
     print $ evenSum [1..4]
     print $ fib 10
     print $ factorial 10
+    print $ root 1 (-14) 5
