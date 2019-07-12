@@ -75,19 +75,58 @@ twoDigits2Int x y =
 
 dist :: (Double, Double) -> (Double, Double) -> Double
 dist p1 p2 = 
-    abs (sqrt first + sqrt second)
+    abs (sqrt (first + second))
     where 
-        first = (snd p1 - fst p1) ^ 2
-        second =  (snd p2 - fst p2) ^ 2
+        first = (fst p2 - fst p1) ^ 2
+        second =  (snd p2 - snd p1) ^ 2
+
+doubleFact :: Integer -> Integer
+doubleFact 1 = 1
+doubleFact 0 = 1
+doubleFact n = if
+    n < 0
+    then error "A negative number"
+    else
+        n * doubleFact (n - 2)
     
+doubleFact' :: Integer -> Integer
+doubleFact' n   | n == 1 = 1
+                | n == 0 = 1
+                | n < 0 = error "A negative number"
+                | otherwise = n * doubleFact (n - 2)
+
+fib' :: Integer -> Integer
+fib' n  | n == 1 = 1
+        | n == 0 = 0
+        | n > 1 = fib'(n - 1) + fib'(n - 2)
+        | otherwise = fib'(n + 2) - fib' (n + 1)
+
+-- хвостовая рекурсия 
+fibonacci n = func 0 1 n
+        where func a b n    | n == 0   = a
+                            | n > 0    = func (a+b) a (n-1)
+                            | n < 0    = func b (a-b) (n+1)
+-- TODO
+-- fibonacci n = func 1 n
+-- where func a acc    | a == n = acc
+--                     | otherwise = func (a + 1) ((acc - 1) + (acc - 2)) 
+---------------------------------------------------------------
+--бесконечный ряд чисел Фибоначчи
+
+fibs :: [Integer]
+fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
+
 main :: IO ()
 main = do
-    print $ evenSum [1..4]
-    print $ fib 10
-    print $ factorial 10
-    print $ root 1 (-14) 5
-    print $ list [1..10]
-    print $ fltr (>3) [1..10]
-    print $ bSort [1, 4, 6, 2, 3, 8, 9, 0, 5]
-    print $ twoDigits2Int '3' '4'
-    print $ dist (8, 4) (5, 6)
+    -- print $ evenSum [1..4]
+    -- print $ fib 10
+    -- print $ factorial 10
+    -- print $ root 1 (-14) 5
+    -- print $ list [1..10]
+    -- print $ fltr (>3) [1..10]
+    -- print $ bSort [1, 4, 6, 2, 3, 8, 9, 0, 5]
+    -- print $ twoDigits2Int '3' '4'
+    -- print $ dist (1, 0) (1, 0)
+    -- print $ doubleFact 10
+    --print $ fib' 10
+    print $ fibonacci 3
