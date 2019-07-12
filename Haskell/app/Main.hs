@@ -1,7 +1,9 @@
+{-# LANGUAGE MultiWayIf #-}
 module Main where
 
 import Lib
 import Data.List
+import Data.Char
 
 evenSum :: Integral a => [a] -> a
 evenSum = accumSum 0
@@ -31,8 +33,8 @@ factorial n =
  
 transp :: (Ord a) => [a] -> (Int, [a]) 
 transp [x] = (0,[x])
-transp (x1:x2:xs) | (x2 < x1) = (n+1, x2: ts1)  
-                  | otherwise = (m, x1 :  ts2)  
+transp (x1:x2:xs) | (x2 < x1) = (n+1, x2:ts1)  
+                  | otherwise = (m, x1:ts2)  
                     where (n,ts1)=transp (x1:xs)
                           (m,ts2)=transp (x2:xs)
                           
@@ -57,6 +59,27 @@ list :: Num a => [a] -> [a]
 list [] = []
 list (x:xs) = x^2 : list xs
 
+fltr :: (a -> Bool) -> [a] -> [a]
+fltr _ [] = []
+fltr f (x:xs) = if
+    | f x -> x : fltr f xs
+    | otherwise -> fltr f xs    
+
+
+twoDigits2Int :: Char -> Char -> Int
+twoDigits2Int x y = 
+    if isDigit x && isDigit y then digitToInt x * 10 + digitToInt y else 100
+
+-------------------------------------------------------------------------------
+-- кортежи
+
+dist :: (Double, Double) -> (Double, Double) -> Double
+dist p1 p2 = 
+    abs (sqrt first + sqrt second)
+    where 
+        first = (snd p1 - fst p1) ^ 2
+        second =  (snd p2 - fst p2) ^ 2
+    
 main :: IO ()
 main = do
     print $ evenSum [1..4]
@@ -64,3 +87,7 @@ main = do
     print $ factorial 10
     print $ root 1 (-14) 5
     print $ list [1..10]
+    print $ fltr (>3) [1..10]
+    print $ bSort [1, 4, 6, 2, 3, 8, 9, 0, 5]
+    print $ twoDigits2Int '3' '4'
+    print $ dist (8, 4) (5, 6)
