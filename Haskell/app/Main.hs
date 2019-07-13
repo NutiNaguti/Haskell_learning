@@ -133,22 +133,14 @@ fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 ----------------------------------------------------------------------
 
 
--- sum'n'count :: Integer -> (Integer, Integer)
--- sum'n'count x   | x == 0 = (0, 1)
---                 | otherwise = (a x, b x)
---                     where 
---                         b x | x < 10 = 1
---                             | otherwise = 1 + b (div (x 10))
---                         a x | x > 10 = a (div (x 10)) + mod (x 10)  
---                             | otherwise = x
---1 + sum'n'count (div x 10) 
-
 sum'n'count :: Integer -> (Integer, Integer)
-sum'n'count x = if x > 0 then helper x 0 0 else helper (-x) 0 0
-    where
-        helper 0 0 0 = (0, 1)
-        helper 0 sum count = (sum, count)
-        helper x sum count = helper (x `div` 10) (sum + x `mod` 10) (count + 1)
+sum'n'count x   | x == 0 = (0, 1)
+                | otherwise = (a x, b x)
+                    where 
+                        b x | x < 10 = 1
+                            | otherwise = 1 + b (div x 10)
+                        a x | x < 10 = x
+                            | otherwise = a (div x 10) + mod x 10
 
 ------------------------------------------------------------------
 
@@ -185,4 +177,4 @@ main = do
     -- print $ fibonacci 3
     -- print $ sum'n'count 234
     -- print $ getSecondFrom 2 'g' "wef"
-
+    print $ sum'n'count 234
