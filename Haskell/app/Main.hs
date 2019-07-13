@@ -116,6 +116,59 @@ fibonacci n = func 0 1 n
 fibs :: [Integer]
 fibs = 1 : 1 : zipWith (+) fibs (tail fibs)
 
+------------------------------------------------------------------------
+-- TODO
+-- seqA :: Integer -> Integer
+-- seqA n = func' 1 2 3 n
+--         where func' a b c n | n == 0 = a
+--                             | a >= 0 && a <= 2 = a + 1
+--                             | otherwise = func'((a-1) + (a-2) - 2 * (a-3)) (n-1) 
+
+
+-- | n == 0 = 1
+-- | n == 1 = 2
+-- | n == 2 = 3
+-- | otherwise = seqA(n-1) + seqA(n-2) - 2 * seqA(n-3) 
+
+----------------------------------------------------------------------
+
+
+-- sum'n'count :: Integer -> (Integer, Integer)
+-- sum'n'count x   | x == 0 = (0, 1)
+--                 | otherwise = (a x, b x)
+--                     where 
+--                         b x | x < 10 = 1
+--                             | otherwise = 1 + b (div (x 10))
+--                         a x | x > 10 = a (div (x 10)) + mod (x 10)  
+--                             | otherwise = x
+--1 + sum'n'count (div x 10) 
+
+sum'n'count :: Integer -> (Integer, Integer)
+sum'n'count x = if x > 0 then helper x 0 0 else helper (-x) 0 0
+    where
+        helper 0 0 0 = (0, 1)
+        helper 0 sum count = (sum, count)
+        helper x sum count = helper (x `div` 10) (sum + x `mod` 10) (count + 1)
+
+------------------------------------------------------------------
+
+-- интегрирование методом трапеции 
+-- TODO
+
+integration :: (Double -> Double) -> Double -> Double -> Double
+integration f a b = undefined
+
+------------------------------------------------------------------
+{--Напишите функцию трех аргументов getSecondFrom, 
+полиморфную по каждому из них, 
+которая полностью игнорирует первый и третий аргумент, 
+а возвращает второй. Укажите ее тип.--}
+
+getSecondFrom :: a -> b -> c -> b
+getSecondFrom x y z = y
+
+----------------------------------------------------------------
+
 main :: IO ()
 main = do
     -- print $ evenSum [1..4]
@@ -128,5 +181,8 @@ main = do
     -- print $ twoDigits2Int '3' '4'
     -- print $ dist (1, 0) (1, 0)
     -- print $ doubleFact 10
-    --print $ fib' 10
-    print $ fibonacci 3
+    -- print $ fib' 10
+    -- print $ fibonacci 3
+    -- print $ sum'n'count 234
+    -- print $ getSecondFrom 2 'g' "wef"
+
