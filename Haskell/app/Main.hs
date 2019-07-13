@@ -137,10 +137,10 @@ sum'n'count :: Integer -> (Integer, Integer)
 sum'n'count x   | x == 0 = (0, 1)
                 | otherwise = (a x, b x)
                     where 
-                        b x | x < 10 = 1
+                        b x | abs x < 10 = 1 
                             | otherwise = 1 + b (div x 10)
-                        a x | x < 10 = x
-                            | otherwise = a (div x 10) + mod x 10
+                        a x | abs x < 10 = x
+                            | otherwise = a (div (abs x) 10) + mod (abs x) 10
 
 ------------------------------------------------------------------
 
@@ -177,4 +177,4 @@ main = do
     -- print $ fibonacci 3
     -- print $ sum'n'count 234
     -- print $ getSecondFrom 2 'g' "wef"
-    print $ sum'n'count 234
+    print $ sum'n'count (-1)
