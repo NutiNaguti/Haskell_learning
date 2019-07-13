@@ -177,4 +177,4 @@ main = do
     -- print $ fibonacci 3
     -- print $ sum'n'count 234
     -- print $ getSecondFrom 2 'g' "wef"
-    print $ sum'n'count (-1)
+    print $ sum'n'count (1231)
